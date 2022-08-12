@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WorkatoTestAPI.Contracts
 {
-	public interface IHttpClientProviderService
+	public interface IHttpClientService
 	{
 		Task<string> GetResultAsync(string name, string phone, CancellationToken cancellationToken = default);
-		Task<string> PostDataAsync<T>(string uri, T payload, CancellationToken cancellationToken = default) where T : class, new();
+		Task<string> PostDataAsync<T>(T payload, CancellationToken cancellationToken = default) where T : class, new();
 	}
 }

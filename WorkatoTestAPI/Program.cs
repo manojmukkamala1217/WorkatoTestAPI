@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using WorkatoTestAPI.Contracts;
 using WorkatoTestAPI.Domain;
+using WorkatoTestAPI.Repository;
 using WorkatoTestAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +20,16 @@ builder.Services.AddSingleton(_ =>
     return workatoApiOptions;
 });
 
+builder.Services.AddDbContext<WorkatoContext>(options =>
+                       options.UseSqlServer(builder.Configuration.GetConnectionString("WorkatoConnection")));
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IHttpClientProviderService, HttpClientProviderService>();
+builder.Services.AddTransient<IHttpClientService, HttpClientService>();
+builder.Services.AddTransient<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<IMapperService, MapperService>();
+builder.Services.AddTransient<ISellerService, SellerService>();
+builder.Services.AddTransient<IWorkatoService, WorkatoService>();
 
 var app = builder.Build();
 
