@@ -1,4 +1,5 @@
-﻿using WorkatoTestAPI.Entites;
+﻿using System.Linq.Expressions;
+using WorkatoTestAPI.Entites;
 
 namespace WorkatoTestAPI.Contracts
 {
@@ -9,6 +10,6 @@ namespace WorkatoTestAPI.Contracts
         Task UpdateSellerAsync(Seller seller);
         Task<Seller> CreateSellerAsync(Seller seller);
 
-
+        Task<IEnumerable<Seller>> GetSellersFindByAsync(Expression<Func<Seller, bool>> predicate);
     }
 }

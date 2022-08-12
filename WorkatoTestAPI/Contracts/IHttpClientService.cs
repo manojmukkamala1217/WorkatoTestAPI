@@ -10,5 +10,6 @@ namespace WorkatoTestAPI.Contracts
 	{
 		Task<string> GetResultAsync(string name, string phone, CancellationToken cancellationToken = default);
 		Task<string> PostDataAsync<T>(T payload, CancellationToken cancellationToken = default) where T : class, new();
+		Task<string> PutDataAsync<T>(T payload, CancellationToken cancellationToken = default) where T : class, new();
 	}
 }

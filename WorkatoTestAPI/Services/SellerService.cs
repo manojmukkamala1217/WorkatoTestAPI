@@ -1,4 +1,5 @@
-﻿using WorkatoTestAPI.Contracts;
+﻿using System.Linq.Expressions;
+using WorkatoTestAPI.Contracts;
 using WorkatoTestAPI.Entites;
 
 namespace WorkatoTestAPI.Services
@@ -28,6 +29,9 @@ namespace WorkatoTestAPI.Services
             var sellerTemp =  _sellerRepository.UpdateSellerAsync(seller);
             return sellerTemp;
         }
-
-    }
+        public async Task<IEnumerable<Seller>> GetSellersFindByAsync(Expression<Func<Seller, bool>> predicate)
+        {
+            return await _sellerRepository.GetSellersFindByAsync(predicate);
+        }
+}
 }

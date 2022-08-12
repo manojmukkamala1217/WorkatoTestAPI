@@ -7,6 +7,7 @@ namespace WorkatoTestAPI.Contracts
     {        
         Task<string>CreateSellerAsync(SellerDTO seller);
         Task<string> CreateSellerAsync(string name, string phone);
-        Task UpdateSellerAsync(SellerDTO seller);
+        Task<string> UpdateSellerAsync(SellerDTO seller);
+        Task<IEnumerable<SellerDTO>> GetAllSellersAsync();
     }
 }

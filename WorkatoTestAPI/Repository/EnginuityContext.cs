@@ -3,9 +3,9 @@ using WorkatoTestAPI.Entites;
 
 namespace WorkatoTestAPI.Repository
 {
-    public class WorkatoContext : DbContext
+    public class EnginuityContext : DbContext
     {
-        public  WorkatoContext(DbContextOptions<WorkatoContext> options)
+        public EnginuityContext(DbContextOptions<EnginuityContext> options)
         : base(options)
         {
 

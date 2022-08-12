@@ -1,4 +1,4 @@
-USE [Workato]
+USE [Enginuity]
 GO
 
 /****** Object:  Table [dbo].[Seller]    Script Date: 12-08-2022 12:26:08 ******/
@@ -8,7 +8,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE  TABLE [dbo].[Sellers](
+CREATE   TABLE [dbo].[Sellers](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[SignstheAgreement]  bit NULL,
 	[Status]    [nvarchar](50) NULL,

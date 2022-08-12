@@ -54,5 +54,24 @@ namespace WorkatoTestAPI.Services
 
             }
         }
+
+        public async Task<string> PutDataAsync<T>(T payload, CancellationToken cancellationToken = default) where T : class, new()
+        {
+            var client = _clientFactory.CreateClient();
+            client.DefaultRequestHeaders.Add("API-TOKEN", _workatoApiOptions.APITOKEN);
+            using var response = await client.PutAsJsonAsync(_workatoApiOptions.ApiUrl, payload, cancellationToken);
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound) throw new Exception("Recipe not found, Check Recipe is running");
+                else if (response.StatusCode == System.Net.HttpStatusCode.Forbidden) throw new Exception("Forbidden, Check IP address is while listed.");
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) throw new Exception("Unauthorised.");
+                else if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError) throw new Exception("Internal Server Error.");
+                else if (response.StatusCode == System.Net.HttpStatusCode.UnprocessableEntity) throw new Exception("Processing Error.");
+                //
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStringAsync(cancellationToken);
+                //
+
+            }
+        }
     }
 }

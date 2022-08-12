@@ -1,11 +1,12 @@
-﻿using WorkatoTestAPI.Contracts;
+﻿using System.Linq.Expressions;
+using WorkatoTestAPI.Contracts;
 using WorkatoTestAPI.Entites;
 
 namespace WorkatoTestAPI.Repository
 {
     public class SellerRepository : RepositoryBase<Seller>, ISellerRepository
     {
-        public  SellerRepository(WorkatoContext workatoContext): base(workatoContext)
+        public  SellerRepository(EnginuityContext workatoContext): base(workatoContext)
         {
 
         }
@@ -15,6 +16,6 @@ namespace WorkatoTestAPI.Repository
             => UpdateAsync(seller);
         public Task<Seller> CreateSellerAsync(Seller seller)
             => CreateAsync(seller);
-       
+        public Task<IEnumerable<Seller>> GetSellersFindByAsync(Expression<Func<Seller, bool>> predicate) => FindByAsync(predicate);
     }
 }

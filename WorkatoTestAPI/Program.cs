@@ -20,8 +20,8 @@ builder.Services.AddSingleton(_ =>
     return workatoApiOptions;
 });
 
-builder.Services.AddDbContext<WorkatoContext>(options =>
-                       options.UseSqlServer(builder.Configuration.GetConnectionString("WorkatoConnection")));
+builder.Services.AddDbContext<EnginuityContext>(options =>
+                       options.UseSqlServer(builder.Configuration.GetConnectionString("EnginuityConnection")));
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpClient();

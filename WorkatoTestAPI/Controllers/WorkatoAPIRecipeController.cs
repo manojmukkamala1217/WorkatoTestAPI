@@ -18,7 +18,7 @@ namespace WorkatoTestAPI.Controllers
             _workatoService = workatoService;
         }
 
-        [HttpGet(Name = "CallWorkatoRecipeTest")]
+        [HttpGet( "CallWorkatoRecipeTest")]
         public async Task<IActionResult> CreateSellerTest(string name,string phone)
         {
             try
@@ -33,7 +33,7 @@ namespace WorkatoTestAPI.Controllers
             }
         }
 
-        [HttpPost(Name = "CreateSeller")]
+        [HttpPost("CreateSeller")]
         public  async Task<IActionResult> CreateSeller(SellerDTO sellerDTO)
         {
             try
@@ -48,14 +48,29 @@ namespace WorkatoTestAPI.Controllers
 			}
         }
 
-        [HttpPost(Name = "UpdateSeller")]
+        [HttpPut("UpdateSeller")]
         public async Task<IActionResult> UpdateSeller(SellerDTO sellerDTO)
         {
             try
             {
-                await _workatoService.UpdateSellerAsync(sellerDTO);
+               var results= await _workatoService.UpdateSellerAsync(sellerDTO);
                 //
-                return Ok();
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet( "GetSellers")]
+        public async Task<IActionResult> GetSellersAsync()
+        {
+            try
+            {
+                var results = await _workatoService.GetAllSellersAsync();
+                //
+                return Ok(results);
             }
             catch (Exception ex)
             {

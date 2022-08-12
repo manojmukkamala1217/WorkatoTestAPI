@@ -7,9 +7,9 @@ namespace WorkatoTestAPI.Repository
     public class RepositoryBase<T>
            where T : class, IEntity
     {
-        protected readonly WorkatoContext Context;
+        protected readonly EnginuityContext Context;
 
-        public RepositoryBase(WorkatoContext context)
+        public RepositoryBase(EnginuityContext context)
         {
             Context = context;
         }
@@ -151,7 +151,7 @@ namespace WorkatoTestAPI.Repository
             return results;
         }
 
-        protected IEnumerable<T> FindByInclude(WorkatoContext context, Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        protected IEnumerable<T> FindByInclude(EnginuityContext context, Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
             var query = GetAllIncluding(context, includeProperties);
             IEnumerable<T> results = query.Where(predicate).ToList();
@@ -176,7 +176,7 @@ namespace WorkatoTestAPI.Repository
         }
 
         private IQueryable<T> GetAllIncluding
-            (WorkatoContext context, params Expression<Func<T, object>>[] includeProperties)
+            (EnginuityContext context, params Expression<Func<T, object>>[] includeProperties)
         {
 
             IQueryable<T> queryable = context.Set<T>().AsNoTracking();
