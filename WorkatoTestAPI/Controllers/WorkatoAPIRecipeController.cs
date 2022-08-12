@@ -33,7 +33,7 @@ namespace WorkatoTestAPI.Controllers
             }
         }
 
-        [HttpPost(Name = "CallWorkatoRecipe")]
+        [HttpPost(Name = "CreateSeller")]
         public  async Task<IActionResult> CreateSeller(SellerDTO sellerDTO)
         {
             try
@@ -46,6 +46,21 @@ namespace WorkatoTestAPI.Controllers
 			{
                 return BadRequest(ex.Message);
 			}
+        }
+
+        [HttpPost(Name = "UpdateSeller")]
+        public async Task<IActionResult> UpdateSeller(SellerDTO sellerDTO)
+        {
+            try
+            {
+                await _workatoService.UpdateSellerAsync(sellerDTO);
+                //
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
