@@ -18,10 +18,18 @@ namespace WorkatoTestAPI.Services
         }
         public async Task<string> CreateSellerAsync(SellerDTO sellerDTO)
         {
-            var seller = _mapperService.Map<Seller>(sellerDTO);
-            await _sellerService.CreateSellerAsync(seller);
-            //
-            return await _httpClientService.PostDataAsync<Seller>(seller);
+            var sellerTemp = await _sellerService.GetSellersFindByAsync(_ => _.LegalName!.ToLower() == sellerDTO.LegalName!.ToLower());
+            if (sellerTemp == null)
+            {
+                var seller = _mapperService.Map<Seller>(sellerDTO);
+                await _sellerService.CreateSellerAsync(seller);
+                //
+                return await _httpClientService.PostDataAsync<Seller>(seller);
+            }
+            else
+            {
+                 throw new Exception($"There is record exists in Seller table with LegalName: {sellerDTO.LegalName}");
+            }
         }
 
         public async Task<string> UpdateSellerAsync(SellerDTO sellerDTO)
@@ -61,7 +69,7 @@ namespace WorkatoTestAPI.Services
                     seller.Roles = sellerDTO.Roles;
                     seller.BusinessRoles = sellerDTO.BusinessRoles;
                     await _sellerService.UpdatSellerAsync(seller);
-                   return await _httpClientService.PutDataAsync<Seller>(seller);
+                  // return await _httpClientService.PutDataAsync<Seller>(seller);
                 }
                
             }
